@@ -14,10 +14,16 @@ def main():
     user_input = int(input("Enter 1 to Sign in\nEnter 2 for sign up\n"))
 
     if user_input == 1:
-        is_user_in = user.sign_in()
+        username = input("Enter your new Username\n")
+        password = input("Enter new Password\n")
+        is_user_in = user.sign_in(username, password)
     elif user_input == 2:
-        user.sign_up()
-        is_user_in = user.sign_in()
+        username = input("Enter you Username\n")
+        password = input("Enter Password\n")
+
+        user.sign_up(username, password)
+        is_user_in = user.sign_in(username, password)
+        print("You were auto signed in.")
 
     if is_user_in:
         print("You can pick any book")
