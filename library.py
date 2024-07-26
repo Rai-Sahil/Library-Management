@@ -2,7 +2,7 @@ from book import Book
 
 class library():
 
-    books = {}
+    books = {}  
 
     def add_book(self, ID, name, author, categoryNum, text):
         book = Book(ID, name, author, categoryNum, text)
@@ -15,9 +15,14 @@ class library():
         for key in self.books:
             self.books[key].print_book()
 
-    def searchBook(self, name):
+    def searchBookName(self, name):
         for key in self.books:
             if self.books[key].name == name:
                 return self.books[key]
+        return None
+
+    def searchBookID(self, ID):
+        if ID in self.books:
+            return self.books[ID]
         return None
 
