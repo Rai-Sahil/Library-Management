@@ -1,16 +1,18 @@
-class User():
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-        self.books = []
+class User:
+    def __init__(self):
+        self.users = {}
 
-    def addBook(self, book):
-        self.books.append(book)
+    def sign_up(self, username, password):
+        if username in self.users:
+            print("Username already exists. Please try again.")
+            return False
+        self.users[username] = password
+        print("User signed up successfully.")
+        return True
 
-    def removeBook(self, book):
-        self.books.remove(book)
-
-    def getName(self):
-        return self.username
-    
-    
+    def sign_in(self, username, password):
+        if username in self.users and self.users[username] == password:
+            print("Signed in successfully.")
+            return True
+        print("Invalid username or password. Please try again.")
+        return False

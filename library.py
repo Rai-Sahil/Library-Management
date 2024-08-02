@@ -1,23 +1,36 @@
-from typing import Any
 from book import Book
 
-class library():
 
-    books = {}
+class Library:
+    def __init__(self):
+        self.books = {}
 
-    def add_book(self, ID, name, author, categoryNum, text):
-        book = Book(ID, name, author, categoryNum, text)
-        self.books[ID] = book
+    def add_book(self, book_id, title, author, genre, description):
+        book = Book(book_id, title, author, genre, description)
+        self.books[book_id] = book
 
-    def removeBook(self, ID):
-        del self.books[ID]
-
-    def print_books(self):
-        for key in self.books:
-            self.books[key].print_book()
-
-    def searchBook(self, name):
-        for key in self.books:
-            if self.books[key].name == name:
-                return self.books[key]
+    def search_book(self, title):
+        for book_id, book in self.books.items():
+            if book.title.lower() == title.lower():
+                return book
         return None
+
+    def check_out_book(self, title, username):
+        book = self.search_book(title)
+        if book:
+            if book.checked_out_by is None:
+                book.checked_out_by = username
+                return True, f"You have successfully checked out {book.title}."
+            else:
+                return False, f"Sorry, the book is already checked out by {book.checked_out_by}."
+        return False, "Sorry, the book is not available in the library."
+
+    def return_book(self, title, username):
+        book = self.search_book(title)
+        if book:
+            if book.checked_out_by == username:
+                book.checked_out_by = None
+                return True, f"You have successfully returned {book.title}."
+            else:
+                return False, "Sorry, you cannot return a book that you haven't checked out."
+        return False, "Sorry, the book is not available in the library."

@@ -1,26 +1,18 @@
-class Book():
-
-    def __init__(self, ID, name, author, categoryNum, text):
-        self.ID = ID
-        self.name = name
+class Book:
+    def __init__(self, book_id, title, author, genre, description):
+        self.book_id = book_id
+        self.title = title
         self.author = author
-        self.categoryNum = categoryNum
-        self.text = text
-        self.isTaken = False
+        self.genre = genre
+        self.description = description
+        self.checked_out_by = None  # None means the book is available
 
-    def print_book(self):
-        print("Name: " + self.name + ", Author: " + self.author + ", Category: " + self.categories[self.categoryNum])
+    def __str__(self):
+        status = "Available" if self.checked_out_by is None else f"Checked out by {self.checked_out_by}"
+        return f"{self.title} by {self.author}, Genre: {self.genre}, Description: {self.description}, Status: {status}"
 
-    def bookBorrowed(self):
-        if self.isTaken:
-            print("Book is already taken")
-            return
-        self.isTaken = True
-        print("Book borrowed")
-
-    def bookReturned(self):
-        if not self.isTaken:
-            print("Book is not taken")
-            return
-        self.isTaken = False
-        print("Book returned")
+    def calculate_duration(self):
+        if self.checked_out_time and self.returned_time:
+            duration = self.returned_time - self.checked_out_time
+            return duration
+        return None
