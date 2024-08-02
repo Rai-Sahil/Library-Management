@@ -12,6 +12,7 @@ def main():
     user = User()
 
     print("Welcome to the library!")
+    lib.print_book()
     user_input = int(input("Enter 1 to Sign in\nEnter 2 to Sign up\n"))
 
     if user_input == 1:

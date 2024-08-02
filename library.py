@@ -1,9 +1,25 @@
-from book import Book
+from wsgiref import headers
 
+from book import Book
+from tabulate import tabulate
 
 class Library:
     def __init__(self):
         self.books = {}
+
+    def print_book(self):
+        if not self.books:
+            print("No books loaded")
+            return
+
+        table=[]
+        headers = ["ID", "Title", "Author", "Genre", "Description", "Status"]
+        for book_id, book in self.books.items():
+            status = "Available" if book.checked_out_by is None else f"Checked out by {book.checked_out_by}"
+            table.append([book_id, book.title, book.author, book.genre, book.description, status])
+
+    print (tabulate(table,headers=headers))
+
 
     def add_book(self, book_id, title, author, genre, description):
         book = Book(book_id, title, author, genre, description)
